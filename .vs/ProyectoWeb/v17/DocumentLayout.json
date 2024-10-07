@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Manu\\source\\repos\\TP_Final\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BE69890F-268D-4F98-B0BE-9FD693519A3E}|ProyectoWeb.Client\\ProyectoWeb.Client.csproj|c:\\users\\manu\\source\\repos\\tp_final\\proyectoweb.client\\pages\\libros.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BE69890F-268D-4F98-B0BE-9FD693519A3E}|ProyectoWeb.Client\\ProyectoWeb.Client.csproj|solutionrelative:proyectoweb.client\\pages\\libros.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE69890F-268D-4F98-B0BE-9FD693519A3E}|ProyectoWeb.Client\\ProyectoWeb.Client.csproj|c:\\users\\manu\\source\\repos\\tp_final\\proyectoweb.client\\layout\\borrardialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BE69890F-268D-4F98-B0BE-9FD693519A3E}|ProyectoWeb.Client\\ProyectoWeb.Client.csproj|solutionrelative:proyectoweb.client\\layout\\borrardialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BorrarDialog.razor",
+              "DocumentMoniker": "C:\\Users\\Manu\\source\\repos\\TP_Final\\ProyectoWeb.Client\\Layout\\BorrarDialog.razor",
+              "RelativeDocumentMoniker": "ProyectoWeb.Client\\Layout\\BorrarDialog.razor",
+              "ToolTip": "C:\\Users\\Manu\\source\\repos\\TP_Final\\ProyectoWeb.Client\\Layout\\BorrarDialog.razor",
+              "RelativeToolTip": "ProyectoWeb.Client\\Layout\\BorrarDialog.razor",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-07T01:56:54.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Libros.razor",
+              "DocumentMoniker": "C:\\Users\\Manu\\source\\repos\\TP_Final\\ProyectoWeb.Client\\Pages\\Libros.razor",
+              "RelativeDocumentMoniker": "ProyectoWeb.Client\\Pages\\Libros.razor",
+              "ToolTip": "C:\\Users\\Manu\\source\\repos\\TP_Final\\ProyectoWeb.Client\\Pages\\Libros.razor",
+              "RelativeToolTip": "ProyectoWeb.Client\\Pages\\Libros.razor",
+              "ViewState": "AQIAALUAAAAAAAAAAAAtwMQAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-07T01:42:13.104Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

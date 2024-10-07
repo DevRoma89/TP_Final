@@ -1,0 +1,155 @@
+﻿@page "/editoriales"
+@inject IRepositorioOC repositorio
+@inject ISnackbar snackBar
+@inject NavigationManager navigatorManager
+
+
+<PageTitle>Editoriales</PageTitle>
+
+<MudCard Elevation="25">
+
+    <MudCardHeader>
+
+        <CardHeaderContent>
+
+            <MudText Typo="Typo.h6"> Agregar / Buscar Editoriales </MudText>
+        </CardHeaderContent>
+
+    </MudCardHeader>
+
+    <MudCardContent>
+
+         <MudGrid>
+
+                <MudItem xs="6">
+                    <MudTextField @bind-Value="editorial.Nombre" Label="Nombre de la Editorial" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                </MudItem>
+
+                
+                <MudItem xs="6">
+
+                    <MudSelect @bind-Value="editorial.Pais" Label="Seleccione el pais de la Editorial" Variant="Variant.Text" Margin="Margin.Normal">
+
+
+                        @foreach (var pais in paises.Paises)
+                        {
+                            <MudSelectItem Value="@pais">@pais</MudSelectItem>
+                        }
+
+
+                    </MudSelect>
+
+
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="editorial.Direccion" Label="Direccion de la Editorial" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+                </MudItem>
+
+                <MudItem>
+
+                <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="GuardarEditorial">Guardar Editorial</MudButton>
+
+                </MudItem>
+
+          </MudGrid>
+
+    </MudCardContent>
+
+</MudCard>
+<br />
+
+<MudTable Elevation="25" Items="editoriales" Dense="true" Hover="true" Filter="new Func<EditorialDTO, bool>(Buscar)" @bind-autor="editorial">
+
+    <ToolBarContent>
+        <MudText>Editoriales</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<AutorDTO, object>(x=>x.Nombre)">Nombre</MudTableSortLabel></MudTh>
+        <MudTh>Direccion</MudTh>
+        <MudTh>Pais</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+        <MudTd DataLabel="Direccion">@context.Direccion</MudTd>
+        <MudTd DataLabel="Pais">@context.Pais</MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+
+</MudTable>
+
+
+
+@code {
+
+
+    private string searchString = "";
+
+    private List<EditorialDTO> editoriales = new List<EditorialDTO>();
+    private EditorialDTO editorial = new EditorialDTO();
+    private PaisesDTO paises = new PaisesDTO();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await GetEditoriales();
+
+    }
+
+    private bool Buscar(EditorialDTO oEditorialDTO)
+    {
+        if (string.IsNullOrWhiteSpace(searchString)) return true;
+        if (oEditorialDTO.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<List<EditorialDTO>> GetEditoriales()
+    {
+
+        var httpResponse = await repositorio.Get<List<EditorialDTO>>("/api/editorial");
+
+        if (!(httpResponse.Error))
+        {
+            editoriales = httpResponse.Response;
+
+            return editoriales;
+        }
+
+        return editoriales;
+
+    }
+
+    public async Task GuardarEditorial()
+    {
+
+        var respuesta = await repositorio.Post<EditorialDTO>("api/editorial", editorial);
+
+        if (respuesta.Error)
+        {
+            snackBar.Add(await respuesta.GetBody(), Severity.Error);
+        }
+        else
+        {
+            snackBar.Add("Editorial agregado correctamente", Severity.Success);
+            editorial = new EditorialDTO();
+            await GetEditoriales();
+        }
+
+
+
+
+    }
+
+}

@@ -1,0 +1,119 @@
+﻿@page "/categorias"
+@inject IRepositorioOC repositorio
+@inject ISnackbar snackBar
+@inject NavigationManager navigatorManager
+
+
+<PageTitle>Categorias</PageTitle>
+
+<MudCard Elevation="25">
+
+    <MudCardHeader>
+
+        <CardHeaderContent>
+
+            <MudText Typo="Typo.h6"> Agregar / Buscar Categorias </MudText>
+        </CardHeaderContent>
+
+    </MudCardHeader>
+
+    <MudCardContent>
+
+        <MudTextField @bind-Value="categoria.Nombre" Label="Nombre de la Categoria" Variant="Variant.Text" Margin="Margin.Normal"></MudTextField>
+      
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="GuardarCategoria">Guardar Categoria</MudButton>
+
+    </MudCardContent>
+
+</MudCard>
+<br />
+
+<MudTable Elevation="25" Items="categorias" Dense="true" Hover="true" Filter="new Func<CategoriaDTO, bool>(Buscar)" @bind-autor="categoria">
+
+    <ToolBarContent>
+        <MudText>Autores</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<AutorDTO, object>(x=>x.Nombre)">Nombre</MudTableSortLabel></MudTh>
+
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+
+</MudTable>
+
+
+
+@code {
+
+
+    private string searchString = "";
+
+    private List<CategoriaDTO> categorias = new List<CategoriaDTO>();
+    private CategoriaDTO categoria = new CategoriaDTO();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await GetCategorias();
+
+    }
+
+    private bool Buscar(CategoriaDTO oCategoriaDTO)
+    {
+        if (string.IsNullOrWhiteSpace(searchString)) return true;
+        if (oCategoriaDTO.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<List<CategoriaDTO>> GetCategorias()
+    {
+
+        var httpResponse = await repositorio.Get<List<CategoriaDTO>>("/api/categoria");
+
+        if (!(httpResponse.Error))
+        {
+            categorias = httpResponse.Response;
+
+            return categorias;
+        }
+
+        return categorias;
+
+    }
+
+    public async Task GuardarCategoria()
+    {
+
+        var respuesta = await repositorio.Post<CategoriaDTO>("api/categoria", categoria);
+
+        if (respuesta.Error)
+        {
+            snackBar.Add(await respuesta.GetBody(), Severity.Error);
+        }
+        else
+        {
+            snackBar.Add("Categoria agregada correctamente", Severity.Success);
+            categoria = new CategoriaDTO();
+            await GetCategorias();
+        }
+
+
+
+
+    }
+
+}

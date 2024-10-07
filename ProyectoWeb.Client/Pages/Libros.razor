@@ -1,0 +1,301 @@
+﻿@page "/libros"
+@inject IRepositorioOC repositorio
+@inject ISnackbar snackBar
+@inject NavigationManager navigatorManager
+@inject IDialogService dialogService
+
+<PageTitle>Libros</PageTitle>
+
+<MudCard Elevation="25">
+
+    <MudCardHeader>
+
+        <CardHeaderContent>
+
+            <MudText Typo="Typo.h6"> Agregar / Buscar Libros </MudText>
+        </CardHeaderContent>
+
+    </MudCardHeader>
+
+    <MudCardContent>
+
+        <MudGrid>
+
+            <MudItem xs="4">
+
+                <MudTextField @bind-Value="libro.Titulo" Label="Titulo del Libro" Variant="Variant.Text" Margin="Margin.Normal" Class="me-5"></MudTextField>
+
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.AutorId" Label="Seleccione un Autor" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (autores != null)
+                    {
+
+                        foreach (var item in autores)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre @item.Apellido</MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.CategoriaId" Label="Seleccione una Categoria" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (categorias != null)
+                    {
+
+                        foreach (var item in categorias)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre </MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.EditorialId" Label="Seleccione una Editorial" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (editoriales != null)
+                    {
+
+                        foreach (var item in editoriales)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre </MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+
+            <MudItem xs="4">
+
+                <MudDatePicker @bind-Date="oFechaPublicacion" Label="Fecha de Publicacion" Margin="Margin.Normal" />
+           
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudTextField @bind-Value="libro.Precio" Label="Precio del Libro" Variant="Variant.Text" Margin="Margin.Normal" Class="me-5"></MudTextField>
+
+            </MudItem>
+            
+
+
+
+
+      
+
+        </MudGrid>
+
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="GuardarLibros">Guardar Libros</MudButton>
+
+    </MudCardContent>
+
+</MudCard>
+<br />
+
+<MudTable Elevation="25" Items="libros" Dense="true" Hover="true" Filter="new Func<LibroDTO, bool>(Buscar)" @bind-autor="libro">
+    <ToolBarContent>
+        <MudText>Libros</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<LibroDTO, object>(x=>x.Titulo)">Titulo del Libro</MudTableSortLabel></MudTh>
+        <MudTd>Autor</MudTd>
+        <MudTd>Categoria</MudTd>
+        <MudTd>Editorial</MudTd>
+        <MudTd>Fecha de Publicacion</MudTd>
+        <MudTd>Precio</MudTd>
+        <MudTd>Acciones</MudTd>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Titulo">@context.Titulo</MudTd>
+        <MudTd DataLabel="Autor">@context.NombreAutor</MudTd>
+        <MudTd DataLabel="Categoria">@context.NombreCategoria</MudTd>
+        <MudTd DataLabel="Editorial">@context.NombreEditorial</MudTd>
+        <MudTd DataLabel="Fecha Publicacion">@context.FechaDePublicacion</MudTd>
+        <MudTd DataLabel="Preio">$@context.Precio</MudTd>
+        <MudTd DataLabel="Acciones">
+            <MudFab  Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit"></MudFab>
+            <MudFab OnClick="() => Borrar(context.Id)" Color="Color.Error" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete"></MudFab>
+            
+        </MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+
+</MudTable>
+
+
+
+@code {
+
+    private bool hover = false;
+    private string searchString = "";
+
+    private DateTime? oFechaPublicacion = new DateTime(2000,01,01);
+
+
+    private List<EditorialDTO> editoriales = new List<EditorialDTO>();
+    private List<CategoriaDTO> categorias = new List<CategoriaDTO>();
+    private List<LibroDTO> libros = new List<LibroDTO>();
+    private List<AutorDTO> autores = new List<AutorDTO>();
+    private LibroDTO libro = new LibroDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await GetLibros();
+        await GetAutores();
+        await GetEditoriales();
+        await GetCategorias();
+
+
+    }
+
+    public async Task Borrar(int id)
+    {
+        var opciones = new DialogOptions { CloseOnEscapeKey = true };
+
+        var dialogo = await dialogService.ShowAsync<BorrarDialog>("Eliminar",opciones);
+
+        var borrar = await dialogo.Result;
+
+        if ( !borrar.Canceled)
+        {
+            
+            var respuesta = await repositorio.Delete($"api/libro/{id}");
+
+            if (respuesta.Error)
+            {
+                snackBar.Add(await respuesta.GetBody(), Severity.Error);
+            }
+            else
+            {
+                snackBar.Add("Libro borrado correctamente", Severity.Success);
+                await GetLibros();
+            }
+        
+        }
+
+    }
+
+    private bool Buscar(LibroDTO libroDTO)
+    {
+        if (string.IsNullOrWhiteSpace(searchString)) return true;
+        if (libroDTO.Titulo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<List<LibroDTO>> GetLibros()
+    {
+
+        var httpResponse = await repositorio.Get<List<LibroDTO>>("/api/libro");
+
+        if (!(httpResponse.Error))
+        {
+            libros = httpResponse.Response;
+
+            return libros;
+        }
+
+        return libros;
+
+    }
+
+
+    public async Task<List<AutorDTO>> GetAutores()
+    {
+
+        var httpResponse = await repositorio.Get<List<AutorDTO>>("/api/autor");
+
+        if (!(httpResponse.Error))
+        {
+            autores = httpResponse.Response;
+
+            return autores;
+        }
+
+        return autores;
+
+    }
+
+
+
+    public async Task GuardarLibros()
+    {
+        libro.FechaDePublicacion = oFechaPublicacion.Value;
+        var respuesta = await repositorio.Post<LibroDTO>("api/libro", libro);
+
+        if (respuesta.Error)
+        {
+            snackBar.Add(await respuesta.GetBody(), Severity.Error);
+        }
+        else
+        {
+            snackBar.Add("Libro agregado correctamente", Severity.Success);
+            libro = new LibroDTO();
+            await GetLibros();
+        }
+
+
+
+
+    }
+
+    public async Task<List<CategoriaDTO>> GetCategorias()
+    {
+
+        var httpResponse = await repositorio.Get<List<CategoriaDTO>>("/api/categoria");
+
+        if (!(httpResponse.Error))
+        {
+            categorias = httpResponse.Response;
+
+            return categorias;
+        }
+
+        return categorias;
+
+    }
+    public async Task<List<EditorialDTO>> GetEditoriales()
+    {
+
+        var httpResponse = await repositorio.Get<List<EditorialDTO>>("/api/editorial");
+
+        if (!(httpResponse.Error))
+        {
+            editoriales = httpResponse.Response;
+
+            return editoriales;
+        }
+
+        return editoriales;
+
+    }
+}

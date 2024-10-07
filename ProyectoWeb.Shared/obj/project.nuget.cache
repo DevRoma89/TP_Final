@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3nv0rqnJMzH/GtqviE/K5TUSkuHDeyn1MSW46elZ3mJux/gS/BOIS3vYBEn+c6gjsHIJ/Lr21OiMI1NOicaAIw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Manu\\source\\repos\\TP_Final\\ProyectoWeb.Shared\\ProyectoWeb.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Manu\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\Manu\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}
