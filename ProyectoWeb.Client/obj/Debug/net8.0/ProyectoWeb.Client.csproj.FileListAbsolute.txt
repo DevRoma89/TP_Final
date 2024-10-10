@@ -3161,6 +3161,13 @@ C:\Users\augusto.ojeda\Desktop\ProyectoWeb\ProyectoWeb.Client\obj\Debug\net8.0\P
 C:\Users\augusto.ojeda\Desktop\ProyectoWeb\ProyectoWeb.Client\obj\Debug\net8.0\refint\ProyectoWeb.Client.dll
 C:\Users\augusto.ojeda\Desktop\ProyectoWeb\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.pdb
 C:\Users\augusto.ojeda\Desktop\ProyectoWeb\ProyectoWeb.Client\obj\Debug\net8.0\ref\ProyectoWeb.Client.dll
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.csproj.AssemblyReference.cache
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.AssemblyInfoInputs.cache
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.AssemblyInfo.cs
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.csproj.CoreCompileInputs.cache
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.sourcelink.json
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\wwwroot\_framework\blazor.boot.json
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\wwwroot\_framework\blazor.webassembly.js
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\wwwroot\_framework\dotnet.js
@@ -3793,13 +3800,6 @@ C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\icudt_EF
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\icudt_no_CJK.dat
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\ProyectoWeb.Shared.dll
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\bin\Debug\net8.0\ProyectoWeb.Shared.pdb
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.csproj.AssemblyReference.cache
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.AssemblyInfoInputs.cache
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.AssemblyInfo.cs
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.csproj.CoreCompileInputs.cache
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\ProyectoWeb.Client.sourcelink.json
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\webcil\Mapster.wasm
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\webcil\Mapster.Core.wasm
 C:\Users\Manu\source\repos\TP_Final\ProyectoWeb.Client\obj\Debug\net8.0\webcil\Microsoft.AspNetCore.Authorization.wasm

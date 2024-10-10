@@ -8,7 +8,7 @@ namespace ProyectoWeb.Server.Controllers
 {
     [ApiController]
     [Route("api/libro")]
-    public class LibroController:ControllerBase
+    public class LibroController : ControllerBase
     {
 
         private readonly AppDbContext context;
@@ -18,9 +18,39 @@ namespace ProyectoWeb.Server.Controllers
             this.context = context;
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<LibroDTO>> Put([FromRoute] int id, [FromBody] LibroDTO libroDTO) {
+
+            var existeLibro = await context.Libros.AnyAsync(x => x.Id == id);
+
+            if (!existeLibro) {
+
+                return NotFound("No se encontro un libro con ese ID");
+
+            }
+
+            if (!(libroDTO.Id == id)) {
+
+                return BadRequest("El ID de la ruta no es el mismo que del cuerpo");
+
+            }
+
+            var libro = libroDTO.Adapt<Libro>();
+            context.Update(libro);
+            await context.SaveChangesAsync();
+            return Ok();
+
+
+
+
+
+
+
+        }
+
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id) { 
-        
+        public async Task<ActionResult> Delete(int id) {
+
             var libro = await context.Libros.FindAsync(id);
 
             if (libro == null) {
@@ -32,12 +62,12 @@ namespace ProyectoWeb.Server.Controllers
             return Ok(libro.Id);
 
 
-        
+
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<LibroDTO>>> GetAll() { 
-        
+        public async Task<ActionResult<List<LibroDTO>>> GetAll() {
+
             var libros = await context.Libros
                 .Include(x => x.Autor)
                 .Include(x => x.Editorial)
@@ -45,6 +75,19 @@ namespace ProyectoWeb.Server.Controllers
                 .ToListAsync();
 
             return libros.Adapt<List<LibroDTO>>();
+
+
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<LibroDTO>> GetById(int id) { 
+        
+            var libros = await context.Libros
+                .Include(x => x.Autor)
+                .Include(x => x.Editorial)
+                .Include(x => x.Categoria)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return libros.Adapt<LibroDTO>();
            
         
         }
@@ -64,6 +107,9 @@ namespace ProyectoWeb.Server.Controllers
             }
             if (!existeC) {
                 return NotFound("No se encontro una Categoria con ese ID");
+            }
+            if ( libroDTO.Precio <= 0 && libroDTO.Precio != null) {
+                return BadRequest("No ingreso un precio valido");
             }
 
             var libro = libroDTO.Adapt<Libro>();

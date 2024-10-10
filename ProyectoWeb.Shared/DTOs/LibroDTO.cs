@@ -21,8 +21,6 @@ namespace ProyectoWeb.Shared.DTOs
         public string NombreCategoria { get; set; }
 
 
-
-
     }
 
 }

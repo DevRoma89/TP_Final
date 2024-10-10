@@ -1,0 +1,140 @@
+﻿@inject IRepositorioOC repositorio
+@inject ISnackbar snackBar
+
+<MudDialog>
+    <DialogContent>
+
+        <MudGrid>
+
+            <MudItem xs="4">
+
+                <MudTextField @bind-Value="libro.Titulo" Label="Titulo del Libro" Variant="Variant.Text" Margin="Margin.Normal" Class="me-5"></MudTextField>
+
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.AutorId" Label="Seleccione un Autor" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (autores != null)
+                    {
+
+                        foreach (var item in autores)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre @item.Apellido</MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.CategoriaId" Label="Seleccione una Categoria" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (categorias != null)
+                    {
+
+                        foreach (var item in categorias)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre </MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+
+            <MudItem xs="4">
+
+                <MudSelect @bind-Value="libro.EditorialId" Label="Seleccione una Editorial" Variant="Variant.Text" Margin="Margin.Normal">
+
+                    @if (editoriales != null)
+                    {
+
+                        foreach (var item in editoriales)
+                        {
+                            <MudSelectItem Value="@item.Id"> @item.Nombre </MudSelectItem>
+
+                        }
+
+                    }
+
+                </MudSelect>
+
+            </MudItem>
+
+
+            <MudItem xs="4">
+
+                <MudDatePicker @bind-Date="oFechaPublicacion" Label="Fecha de Publicacion" Margin="Margin.Normal" />
+
+            </MudItem>
+
+            <MudItem xs="4">
+
+                <MudTextField @bind-Value="libro.Precio" Label="Precio del Libro" Variant="Variant.Text" Margin="Margin.Normal" Class="me-5"></MudTextField>
+
+            </MudItem>
+
+
+        </MudGrid>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Put">Editar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+
+    [Parameter]
+    public List<EditorialDTO> editoriales { get; set; } = new List<EditorialDTO>();
+
+    [Parameter]
+    public List<CategoriaDTO> categorias { get; set; } = new List<CategoriaDTO>();
+
+    [Parameter]
+    public List<AutorDTO> autores { get; set; } = new List<AutorDTO>();
+
+    [Parameter]
+    public LibroDTO libro { get; set; } = new LibroDTO();
+
+    public DateTime? oFechaPublicacion;
+
+    protected override void OnInitialized()
+    {
+        oFechaPublicacion = libro.FechaDePublicacion; 
+    }
+
+    public async Task Put()
+    {
+
+        libro.FechaDePublicacion = oFechaPublicacion.Value;
+        var respuesta = await repositorio.Put($"api/libro/{libro.Id}", libro);
+
+        if (respuesta.Error)
+        {
+            snackBar.Add(await respuesta.GetBody(), Severity.Error);
+        }
+        else
+        {
+            snackBar.Add("Libro borrado correctamente", Severity.Success);
+
+            MudDialog.Close();
+        }
+
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

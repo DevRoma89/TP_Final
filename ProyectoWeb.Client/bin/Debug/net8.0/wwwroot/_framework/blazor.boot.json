@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ProyectoWeb.Client",
   "resources": {
-    "hash": "sha256-vjHAHg3jGhutANLaWv4BDGfGz3Q/XxyjMe5+YnlU560=",
+    "hash": "sha256-T+nJMjhxQ3gU3nGRO3V3UBcHOduGc7Efzs7/kK84aDA=",
     "jsModuleNative": {
       "dotnet.native.8.0.2.7zn8t3jo5w.js": "sha256-gPMK16QWoJSTxorlZJqcVtbBRTniIQWlLsJN2O4cJHg="
     },
@@ -213,12 +213,12 @@
       "mscorlib.wasm": "sha256-OH3kXneWqQMz6CUSo6POZqIeMqn9+5RR+IgHn5TnIwA=",
       "netstandard.wasm": "sha256-ZOswxXEbR2TmqjpbaBEdgr85Bv1NC4GwOwoJ+oxXM3M=",
       "System.Private.CoreLib.wasm": "sha256-I2w0iHf5nvSQyF1YE1VbgdTzmmz6a4OE6J7vo5wFa/4=",
-      "ProyectoWeb.Shared.wasm": "sha256-eAvkJPh/WT1f5/Cy+1TaK1EnnGX9kPDvMxpSsQA9IkM=",
-      "ProyectoWeb.Client.wasm": "sha256-1Gx1RXkYBBiR5PuPX787eo/Wv8XKu97oLNuowja8ayQ="
+      "ProyectoWeb.Shared.wasm": "sha256-KEoSlaWchhzXyNn1q6FguHIVDMlP885nDOKlfFPMxb0=",
+      "ProyectoWeb.Client.wasm": "sha256-8J+5fZqJ8tI+S+S4/K+yRu6Z9eLO00UUL205pKVPmQM="
     },
     "pdb": {
-      "ProyectoWeb.Shared.pdb": "sha256-053oUugURIwpySAGZVCMLzbdbb2jmmqYqNRf9armDdI=",
-      "ProyectoWeb.Client.pdb": "sha256-CVbyQLTlIXcCgoSbaf4dpMLpJxJNa4sV50oEg1fIqdo="
+      "ProyectoWeb.Shared.pdb": "sha256-4tu5h4cgRXigBWyKO+hJa+CYI6xAineizDOn/hPH4Y4=",
+      "ProyectoWeb.Client.pdb": "sha256-x7GWp6Fg3HHUwIC/Z+rWLuYTQZcpc8/uKmGP7Hj/ZAY="
     }
   },
   "cacheBootResources": true,

@@ -12,7 +12,7 @@
 
         <CardHeaderContent>
 
-            <MudText Typo="Typo.h6"> Agregar / Buscar Libros </MudText>
+            <MudText Typo="Typo.h6"> Agregar Libros </MudText>
         </CardHeaderContent>
 
     </MudCardHeader>
@@ -115,7 +115,7 @@
 
 <MudTable Elevation="25" Items="libros" Dense="true" Hover="true" Filter="new Func<LibroDTO, bool>(Buscar)" @bind-autor="libro">
     <ToolBarContent>
-        <MudText>Libros</MudText>
+        <MudText>Listado de Libros</MudText>
         <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
@@ -133,10 +133,10 @@
         <MudTd DataLabel="Autor">@context.NombreAutor</MudTd>
         <MudTd DataLabel="Categoria">@context.NombreCategoria</MudTd>
         <MudTd DataLabel="Editorial">@context.NombreEditorial</MudTd>
-        <MudTd DataLabel="Fecha Publicacion">@context.FechaDePublicacion</MudTd>
+        <MudTd DataLabel="Fecha Publicacion">@context.FechaDePublicacion.ToString("d")</MudTd>
         <MudTd DataLabel="Preio">$@context.Precio</MudTd>
         <MudTd DataLabel="Acciones">
-            <MudFab  Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit"></MudFab>
+            <MudFab  OnClick="() => EditarDialog(context.Id)" Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit"></MudFab>
             <MudFab OnClick="() => Borrar(context.Id)" Color="Color.Error" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete"></MudFab>
             
         </MudTd>
@@ -173,6 +173,35 @@
         await GetCategorias();
 
 
+    }
+
+    public async Task EditarDialog(int id)
+    {
+        var opciones = new DialogOptions { CloseOnEscapeKey = true };
+
+        var parametros = new DialogParameters
+        {
+
+
+            { nameof(Editar.editoriales), await GetEditoriales()},
+            { nameof(Editar.categorias), await GetCategorias() },
+            { nameof(Editar.autores), await GetAutores() },
+            { nameof(Editar.libro), await GetLibroById(id) }
+
+
+
+        };
+
+        var dialogo = await dialogService.ShowAsync<Editar>("Editar",parametros, opciones );
+
+        var editado = await dialogo.Result;
+
+        if (!editado.Canceled)
+        {
+            await GetLibros();
+        }
+
+        
     }
 
     public async Task Borrar(int id)
@@ -225,6 +254,22 @@
         }
 
         return libros;
+
+    }
+
+    public async Task<LibroDTO> GetLibroById(int id)
+    {
+
+        var httpResponse = await repositorio.Get<LibroDTO>($"/api/libro/{id}");
+
+        if (!(httpResponse.Error))
+        {
+            var libro = httpResponse.Response;
+
+            return libro;
+        }
+
+        return libro;
 
     }
 

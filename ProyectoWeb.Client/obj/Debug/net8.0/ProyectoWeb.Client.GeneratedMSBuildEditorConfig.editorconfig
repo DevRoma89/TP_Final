@@ -33,6 +33,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEJvcnJhckRpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Manu/source/repos/TP_Final/ProyectoWeb.Client/Layout/Editar.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEVkaXRhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Manu/source/repos/TP_Final/ProyectoWeb.Client/Pages/Autores.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0b3Jlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
